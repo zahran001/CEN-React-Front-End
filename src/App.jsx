@@ -14,6 +14,8 @@ const App = () => (
       <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   </Router>
+
+  // blah blah
 );
 
 export default App;
