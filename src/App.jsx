@@ -4,6 +4,8 @@ import Registration from "./Registration";
 import RolePage from "./RolePage";
 import Login from "./Login";
 import Dashboard from "./Dashboard";
+import RegisterCourse from "./RegisterCourse";
+import UpdateCourse from "./UpdateCourse";
 
 const App = () => (
   <Router>
@@ -12,6 +14,8 @@ const App = () => (
       <Route path="/role" element={<RolePage />} />
       <Route path="/login" element={<Login />} /> 
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/register-course" element={<RegisterCourse />} />
+      <Route path="/update-course/:courseId" element={<UpdateCourse />} />
     </Routes>
   </Router>
 );

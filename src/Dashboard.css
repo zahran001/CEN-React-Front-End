@@ -99,27 +99,26 @@
 }
 
 
-
-
-.register-link {
-  padding-top: 1000px;
-  background: none; /* Remove button background */
-  color: #007bff; /* Link color */
-  border: none; /* Remove border */
-  font-size: 16px; /* Font size */
-  font-weight: bold; /* Bold text for emphasis */
-  cursor: pointer; /* Pointer cursor for interaction */
-  text-decoration: underline; /* Add underline to mimic a link */
-  padding: 100; /* Remove padding for a line look */
+.redirect-message {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 10px;
+  text-align: center;
 }
 
-/* Hover and focus effects for the inline button */
-.register-link:hover {
-  color: #0056b3; /* Darker blue on hover */
-  text-decoration: none; /* Remove underline for hover effect */
+/* Style the button to look like a link */
+.logout-link {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit; /* Matches the parent text font */
 }
 
-.register-link:focus {
-  outline: none; /* Remove default focus outline */
-  text-decoration: underline; /* Keep underline on focus */
+.logout-link:hover {
+  color: #0056b3;
+  text-decoration: none; /* Optional: remove underline on hover */
 }

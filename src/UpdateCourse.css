@@ -1,0 +1,83 @@
+.update-course-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .update-course-container h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .update-course-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .update-course-form label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .update-course-form input,
+  .update-course-form select {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .update-course-form input:focus,
+  .update-course-form select:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+  
+  .update-course-form button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .update-course-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .update-course-form .cancel-button {
+    background-color: #6c757d;
+    margin-left: 10px;
+  }
+  
+  .update-course-form .cancel-button:hover {
+    background-color: #5a6268;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
+  
+  .success-message {
+    color: green;
+    font-size: 14px;
+    margin-bottom: 15px;
+  }
+  
