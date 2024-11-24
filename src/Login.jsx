@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css"; // Import the CSS file
 
 const Login = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
     username: location.state?.username || "",
@@ -31,6 +32,7 @@ const Login = () => {
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");
     }
+
   };
 
   return (

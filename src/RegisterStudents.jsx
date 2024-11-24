@@ -1,3 +1,5 @@
+// frontend for advisor adding courses
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,16 +10,28 @@ const RegisterStudents = () => {
   const [courses, setCourses] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
+  const token = localStorage.getItem("authToken");
+
+  if (!token) {
+    console.error("No token found, please log in.");
+    return;
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Check if the UID exists in the database
       // Register courses for the student
-      await axios.post(`http://localhost:8080/api/students/${studentUID}/register-courses`, {
+      await axios.post(`http://localhost:8080/api/users/students/${studentUID}/register-courses`, {
         name: studentName,
         courses: courses.split(",").map((course) => course.trim()),
-      });
+      },
+      {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
 
       alert("Courses successfully registered for the student!");
       navigate("/dashboard"); // Redirect back to the dashboard

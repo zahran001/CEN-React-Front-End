@@ -15,10 +15,6 @@ const Dashboard = () => {
     navigate("/login"); // Redirect to login if not authenticated
   }
 
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    navigate("/login"); // Redirect to login page
-  };
 
   const handleGetAllCourses = () => {
     navigate("/courses"); // Replace with the actual route to get all courses
@@ -28,8 +24,25 @@ const Dashboard = () => {
     navigate("/register-course"); // Replace with the actual route to register a course
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate("/login"); // Redirect to login page
+  };
+
   const handleRegisterStudents = () =>{
     navigate("/register-courses");
+  }
+
+  const handleDropCourse = () =>{
+    navigate("/drop-courses");
+  }
+
+  const handleGetDetails = () =>{
+    navigate("/student-view");
+  }
+
+  const handleInstructorGetDetails = () =>{
+    navigate("/instructor-view");
   }
 
   return (
@@ -49,17 +62,28 @@ const Dashboard = () => {
         </div>
       )}
 
+      {/*If role is advisor, show these two buttons*/}
       {role === "advisor" && (
         <div className="advisor-actions">
-          <button onClick={handleRegisterStudents}>Register Students</button>
+          <button onClick={handleRegisterStudents}>Register Courses</button>
+          <button onClick={handleDropCourse}>Drop Courses</button>
         </div>
       )}
+
+      {/*If role is student, show the Get Your Details button*/}
       {role === "student" && (
-        <div className="student-view">
-          <h2>Your Courses</h2>
-          <StudentCourses/>
+        <div className="student-actions">
+          <button onClick={handleGetDetails}>Get Your Details</button>
         </div>
       )}
+
+      {/*If role is instructor, show the Get Your Details button*/}
+      {role === "instructor" && (
+        <div className="instructor-actions">
+          <button onClick={handleInstructorGetDetails}>Get Your Details</button>
+        </div>
+      )}
+    
       {/* <button className="register-link" onClick={handleLogout}>Logout</button> */}
     </div>
   );

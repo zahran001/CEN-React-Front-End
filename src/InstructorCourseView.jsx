@@ -1,9 +1,9 @@
-// Frontend for viewing student details
+// Frontend for viewing instructor details
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const StudentCourses = () => {
+const InstructorCourses = () => {
   const [courses, setCurrentCourses] = useState([]);
   const [name, setName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -13,7 +13,7 @@ const StudentCourses = () => {
       const fetchCourses = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8080/api/users/student/studentview`,
+            `http://localhost:8080/api/users/instructor/instructorview`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -21,6 +21,7 @@ const StudentCourses = () => {
             }
           );
           setCurrentCourses(response.data.courses); // Set courses in state
+          console.log(courses);
           setName(response.data.name);
         } catch (error) {
           console.error("Error fetching courses:", error);
@@ -33,20 +34,17 @@ const StudentCourses = () => {
 
   return (
     <div>
-      <h2>Hi {name}!</h2> 
-      <h2>Your Courses:</h2>
-      {errorMessage && <p>{errorMessage}</p>}
-      {courses.length > 0 ? (
-        <ul>
-          {courses.map((course, index) => (
-            <li key={index}>{course}</li> // Assuming `course` is a string or object with a `name`
-          ))}
-        </ul>
-      ) : (
-        <p>You are not registered for any courses.</p>
-      )}
+      <h1>Welcome, {name}</h1>
+      <h2>Your Courses</h2>
+      <ul>
+        {courses.map((course, index) => (
+          <li key={index}>
+            <strong>{course.title}</strong> ({course.course_code}) - {course.credits} credits, {course.semester} {course.year}
+          </li>
+        ))}
+      </ul>
     </div>
   );
-};
+}
 
-export default StudentCourses;
+export default InstructorCourses;
