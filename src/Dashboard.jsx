@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios"; // Add axios import
 import "./Dashboard.css";
+import StudentCourses from "./StudentCoursesView";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -80,6 +81,16 @@ const Dashboard = () => {
   const handleRegisterStudents = () => {
     navigate("/register-courses");
   };
+
+  const handleDropCourse = () =>{
+    navigate("/drop-courses");
+  }
+  const handleGetDetails = () =>{
+    navigate("/student-view");
+  }
+  const handleInstructorGetDetails = () =>{
+    navigate("/instructor-view");
+  }
 
   const [logs, setLogs] = useState([]);
 
@@ -178,6 +189,35 @@ const Dashboard = () => {
               </li>
             ))}
           </ul>
+        </div>
+      )}
+
+      {/*If role is advisor, show these two buttons*/}
+      {role === "advisor" && (
+        <div className="advisor-actions">
+          <button onClick={handleRegisterStudents}>Register Courses</button>
+          <button onClick={handleDropCourse}>Drop Courses</button>
+        </div>
+      )}
+      {/* {role === "student" && (
+        <div className="student-view">
+          <h2>Your Courses</h2>
+          <StudentCourses />
+        </div>
+      )} */}
+
+       {/*If role is student, show the Get Your Details button*/}
+       {role === "student" && (
+        <div className="student-actions">
+          <button onClick={handleGetDetails}>Get Your Details</button>
+        </div>
+      )}
+
+
+      {/*If role is instructor, show the Get Your Details button*/}
+      {role === "instructor" && (
+        <div className="instructor-actions">
+          <button onClick={handleInstructorGetDetails}>Get Your Details</button>
         </div>
       )}
 
