@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Dashboard.css";
+import StudentCourses from "./StudentCoursesView";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -27,6 +28,10 @@ const Dashboard = () => {
     navigate("/register-course"); // Replace with the actual route to register a course
   };
 
+  const handleRegisterStudents = () =>{
+    navigate("/register-courses");
+  }
+
   return (
     <div className="dashboard-container">
       <h1>Welcome to the Dashboard!</h1>
@@ -44,9 +49,21 @@ const Dashboard = () => {
         </div>
       )}
 
+      {role === "advisor" && (
+        <div className="advisor-actions">
+          <button onClick={handleRegisterStudents}>Register Students</button>
+        </div>
+      )}
+      {role === "student" && (
+        <div className="student-view">
+          <h2>Your Courses</h2>
+          <StudentCourses/>
+        </div>
+      )}
       {/* <button className="register-link" onClick={handleLogout}>Logout</button> */}
     </div>
   );
 };
+
 
 export default Dashboard;
