@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { useLocation, useNavigate, } from "react-router-dom";
+import React, { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios"; // Add axios import
 import "./Dashboard.css";
 
@@ -22,30 +22,32 @@ const Dashboard = () => {
     navigate("/login"); // Redirect to login page
   };
 
-  const handleGetAllCourses = async () => { // Mark this function as async
+  const handleGetAllCourses = async () => {
+    // Mark this function as async
     try {
       // Make a POST request to your backend API
       const response = await axios.get(
-        "http://localhost:8080/api/courses/view/", 
+        "http://localhost:8080/api/courses/view/",
         {
           headers: {
             Authorization: `Bearer ${authToken}`, // Pass the auth token in the headers
           },
         }
-        
       );
       // Update state with the retrieved courses
       console.log(response.data);
       setCourses(response.data);
     } catch (error) {
-      console.error("Error fetching courses:", error.response?.data || error.message);
+      console.error(
+        "Error fetching courses:",
+        error.response?.data || error.message
+      );
     }
   };
 
   const handleRegisterCourse = () => {
     navigate("/register-course"); // route to register a course
   };
-
 
   const handleDeleteCourse = async (courseId) => {
     try {
@@ -59,14 +61,42 @@ const Dashboard = () => {
       );
       alert("Course deleted successfully.");
       // Refresh the courses list
-      setCourses((prevCourses) => prevCourses.filter((course) => course._id !== courseId));
+      setCourses((prevCourses) =>
+        prevCourses.filter((course) => course._id !== courseId)
+      );
     } catch (error) {
-      console.error("Error deleting course:", error.response?.data || error.message);
+      console.error(
+        "Error deleting course:",
+        error.response?.data || error.message
+      );
       alert("Failed to delete the course.");
     }
   };
+
   const handleUpdateCourse = (courseId) => {
     navigate(`/update-course/${courseId}`); // Navigate to the update form with the course ID
+  };
+
+  const handleRegisterStudents = () => {
+    navigate("/register-courses");
+  };
+
+  const [logs, setLogs] = useState([]);
+
+  const handleViewLogs = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/logs", {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
+      setLogs(response.data); // Store logs in state
+    } catch (error) {
+      console.error(
+        "Error fetching logs:",
+        error.response?.data || error.message
+      );
+    }
   };
 
   return (
@@ -82,6 +112,7 @@ const Dashboard = () => {
         <div className="staff-actions">
           <button onClick={handleGetAllCourses}>Get All Courses</button>
           <button onClick={handleRegisterCourse}>Register a Course</button>
+          <button onClick={handleViewLogs}>View Logs</button>
         </div>
       )}
 
@@ -134,9 +165,25 @@ const Dashboard = () => {
         <p>Click "Get All Courses" to load and update courses.</p>
       )}
 
+      {logs.length > 0 && (
+        <div className="logs-container">
+          <h2>Logs:</h2>
+          <ul>
+            {logs.map((log, index) => (
+              <li key={index}>
+                <strong>User:</strong> {log.user} | <strong>Role:</strong>{" "}
+                {log.role} | <strong>Operation:</strong> {log.operationType} |{" "}
+                <strong>Timestamp:</strong>{" "}
+                {new Date(log.timestamp).toLocaleString()}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <p className="redirect-message">
         <span className="logout-link" onClick={handleLogout}>
-        Logout
+          Logout
         </span>
       </p>
     </div>
