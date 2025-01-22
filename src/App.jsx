@@ -9,8 +9,10 @@ import UpdateCourse from "./UpdateCourse";
 import RegisterStudents from "./RegisterStudents";
 import DropCourses from "./DropCourses.jsx";
 import StudentCourses from "./StudentCoursesView.jsx";
-// import RegisterCourse from "./RegisterCourse.jsx";
 import InstructorCourses from "./InstructorCourseView.jsx";
+import ReportPortal from "./ReportPortal.jsx";
+import WhatifAnalysis from "./WhatifAnalysis.jsx";
+import WhatifAnalysisAdvisor from "./WhatifAnalysisAdvisor.jsx";
 
 const App = () => (
   <Router>
@@ -27,9 +29,11 @@ const App = () => (
       <Route path="/student-view" element={<StudentCourses/>} />
       {/* <Route path="register-course" element={<RegisterCourse/>} /> */}
       <Route path="/instructor-view" element={<InstructorCourses/>} />
+      <Route path="/report-portal" element={<ReportPortal />} />
+      <Route path="/whatifanalysis" element={<WhatifAnalysis/>}/>
+      <Route path="/whatifanalysis/:uid" element={<WhatifAnalysisAdvisor/>}/>
     </Routes>
   </Router>
 );
 
 export default App;
-

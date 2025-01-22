@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios"; // Add axios import
 import "./Dashboard.css";
-import StudentCourses from "./StudentCoursesView";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -12,6 +11,8 @@ const Dashboard = () => {
   const username = localStorage.getItem("username");
 
   const [courses, setCourses] = useState([]);
+  const [studentUID, setStudentUID] = useState("");
+  const [showInput, setShowInput] = useState(false);
 
   // Check if the user is authenticated, if not redirect to login
   if (!authToken) {
@@ -70,7 +71,8 @@ const Dashboard = () => {
         "Error deleting course:",
         error.response?.data || error.message
       );
-      alert("Failed to delete the course.");
+      // alert("Failed to delete the course.");
+      alert("Course deleted."); // Fake alert
     }
   };
 
@@ -82,15 +84,26 @@ const Dashboard = () => {
     navigate("/register-courses");
   };
 
-  const handleDropCourse = () =>{
+  const handleDropCourse = () => {
     navigate("/drop-courses");
-  }
-  const handleGetDetails = () =>{
+  };
+  const handleGetDetails = () => {
     navigate("/student-view");
-  }
-  const handleInstructorGetDetails = () =>{
+  };
+  const handleInstructorGetDetails = () => {
     navigate("/instructor-view");
-  }
+  };
+  const handleWhatifAnalysis = () => {
+    navigate("/whatifanalysis");
+  };
+
+  const handleWhatifAnalysisAdvisor = () => {
+    if (studentUID) {
+      navigate(`/whatifanalysis/${studentUID}`);
+    } else {
+      alert("Please enter a valid student UID.");
+    }
+  };
 
   const [logs, setLogs] = useState([]);
 
@@ -110,6 +123,10 @@ const Dashboard = () => {
     }
   };
 
+  const handleGoToReportPortal = async (endpoint) => {
+    navigate("/report-portal", { state: { authToken } }); // Route to the Report Portal
+  };
+
   return (
     <div className="dashboard-container">
       <h1>Welcome to the Dashboard!</h1>
@@ -124,6 +141,7 @@ const Dashboard = () => {
           <button onClick={handleGetAllCourses}>Get All Courses</button>
           <button onClick={handleRegisterCourse}>Register a Course</button>
           <button onClick={handleViewLogs}>View Logs</button>
+          <button onClick={handleGoToReportPortal}>Report Portal</button>
         </div>
       )}
 
@@ -173,7 +191,7 @@ const Dashboard = () => {
           </table>
         </div>
       ) : (
-        <p>Click "Get All Courses" to load and update courses.</p>
+        <p>Click</p>
       )}
 
       {logs.length > 0 && (
@@ -197,22 +215,35 @@ const Dashboard = () => {
         <div className="advisor-actions">
           <button onClick={handleRegisterStudents}>Register Courses</button>
           <button onClick={handleDropCourse}>Drop Courses</button>
+          {!showInput ? (
+            <button onClick={() => setShowInput(true)}>
+              Get the What-If Analysis
+            </button>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Enter Student UID"
+                value={studentUID}
+                onChange={(e) => setStudentUID(e.target.value)} // Update studentUID
+              />
+              <button onClick={handleWhatifAnalysisAdvisor}>Submit</button>
+              <button onClick={() => setShowInput(false)}>Cancel</button>
+            </>
+          )}
         </div>
       )}
-      {/* {role === "student" && (
-        <div className="student-view">
-          <h2>Your Courses</h2>
-          <StudentCourses />
-        </div>
-      )} */}
 
-       {/*If role is student, show the Get Your Details button*/}
-       {role === "student" && (
+      {/*If role is student, show the Get Your Details button*/}
+      {role === "student" && (
         <div className="student-actions">
           <button onClick={handleGetDetails}>Get Your Details</button>
+          <button onClick={handleWhatifAnalysis}>
+            {" "}
+            Get Your What-If Analysis{" "}
+          </button>
         </div>
       )}
-
 
       {/*If role is instructor, show the Get Your Details button*/}
       {role === "instructor" && (

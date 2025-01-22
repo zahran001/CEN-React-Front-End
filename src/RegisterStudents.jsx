@@ -16,12 +16,6 @@ const RegisterStudents = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Check if the UID exists in the database
-      // Register courses for the student
-    //   await axios.post(`http://localhost:8080/api/users/students/${studentUID}/register-courses`, {
-    //     name: studentName,
-    //     courses: courses.split(",").map((course) => course.trim()),
-    //   });
       await axios.post(`http://localhost:8080/api/users/students/${studentUID}/register-courses`, {
         name: studentName,
         courses: courses.split(",").map((course) => course.trim()),
@@ -75,10 +69,3 @@ const RegisterStudents = () => {
   );
 };
 export default RegisterStudents;
-
-
-
-// frontend for advisor adding courses
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import axios from "axios";
